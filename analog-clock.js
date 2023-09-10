@@ -30,4 +30,26 @@ for (let i = 1; i <= 12; i++) {
     context.font = '20px Arial';
     context.fillText(i.toString(), x, y);
   }
-///////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////////
+function scondHandler(){
+const now = new Date();
+const seconds = now.getSeconds();
+const secondHandAngle = (-90 + seconds * 6) * (Math.PI / 180);
+const secondHandLength = radius - 40;
+const secondHandX = centerX + Math.cos(secondHandAngle) * secondHandLength;
+const secondHandY = centerY + Math.sin(secondHandAngle) * secondHandLength;
+
+context.beginPath();
+context.moveTo(centerX, centerX);
+context.lineTo(secondHandX, secondHandY);
+context.lineWidth = 5;
+context.strokeStyle = 'red';
+context.stroke()
+}
+//////////////////////////////////////////////////////////////////////////////////
+function animate(){
+  update()
+  requestAnimationFrame(animate)
+}
+animate()
