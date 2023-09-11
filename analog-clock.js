@@ -5,7 +5,7 @@ canvas.style.border = "0px";
 ///////////////////////////////////////////////////////////////////////////////
 function clock(){
   this.centerX = canvas.width / 2 ;
-  this.centerY = canvas.height / 2 ;
+  this.centerY = canvas.height / 2;
   this.radius = (canvas.width / 2) - 10;
   context.beginPath();
   context.arc(this.centerX, this.centerY, this.radius-20, 0, 2 * Math.PI);
@@ -41,17 +41,50 @@ function secondHandler(){
   context.moveTo(cck.centerX, cck.centerX);
   context.lineTo(secondHandX, secondHandY);
   context.lineWidth = 5;
-  context.strokeStyle = 'red';
+  context.strokeStyle = '#183D3D';
   context.stroke()
 }
-let secondhandler = new secondHandler()
+//let secondhandler = new secondHandler()
+//////////////////////////////////////////////////////////////////////////////////
+function minutesHandler(){
+  const now = new Date();
+  const minutes = now.getMinutes();
+  const mnutesHandAnglei = (-90 + minutes * 6) * (Math.PI / 180);
+  const minutesHandLength = cck.radius - 50;
+  const secondHandX = cck.centerX + Math.cos(mnutesHandAnglei) * minutesHandLength;
+  const secondHandY = cck.centerY + Math.sin(mnutesHandAnglei) * minutesHandLength;
+  context.beginPath();
+  context.moveTo(cck.centerX, cck.centerX);
+  context.lineTo(secondHandX, secondHandY);
+  context.lineWidth = 5;
+  context.strokeStyle = '#435334';
+  context.stroke()
+}
+//let minuteshandler = new minutesHandler()
+//////////////////////////////////////////////////////////////////////////////////
+function hoursHandler(){
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const hoursHandAngle = (-90 + (hours % 12 + minutes / 60) * 30) * (Math.PI / 180);
+  const hoursHandAngleLength = cck.radius - 70;
+  const secondHandX = cck.centerX + Math.cos(hoursHandAngle) * hoursHandAngleLength;
+  const secondHandY = cck.centerY + Math.sin(hoursHandAngle) * hoursHandAngleLength;
+  context.beginPath();
+  context.moveTo(cck.centerX, cck.centerX);
+  context.lineTo(secondHandX, secondHandY);
+  context.lineWidth = 5;
+  context.strokeStyle = 'white';
+  context.stroke()
+}
 //////////////////////////////////////////////////////////////////////////////////
 function animate(){
   context.clearRect(0, 0, canvas.width, canvas.height);
   clock()
   numbers()
   secondHandler()
-
+  minutesHandler()
+  hoursHandler()
   requestAnimationFrame(animate)
 }
 animate()
